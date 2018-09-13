@@ -1,0 +1,53 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<a href="{% url 'home' %}" role="button">Home | </a><a href="{% url 'create_brand' %}" role="button">ADD</a>
+<br>
+<a href="{% url 'list_brands_inactive' %}" role="button">Inactive Brands</a>
+
+<table>
+  <th>Brand Name</th>
+  <th>Status</th>
+  <th>Created by</th>
+  <th>Created At</th>
+  <th>Updated At</th>
+  <th>Delete</th>
+  {% for brand in brands %}
+  <tr>
+    <td><a href="{% url 'update_brand' brand.id %}">{{ brand.brand_name }}</a></td>
+    <td>{{ brand.is_active }} |</td>
+    <td>{{ brand.created_by }} |</td>
+    <td>{{ brand.created_at }} |</td>
+    <td>{{ brand.updated_at }} |</td>
+    <td>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
+    </td>
+
+    <div class="modal fade" id="deleteModal" role="dialog">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Delete</h4>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you like to delete this?</p>
+          </div>
+          <form class="form-group" method="post" action="{% url 'delete_brand' brand.id %}">
+            {% csrf_token %}
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <input class="btn btn-primary" type="submit" value="Save" />
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="{% url 'home' %}" role="button">Home</a>
+<br>
+<a href="{% url 'list_brands' %}" role="button">Active Brands</a>
+<br>
+{% if messages %}
+<div class="alert alert-success" role="alert">
+  <ul class="messages" style="none">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endif %}
+<table>
+  <th>Brand Name</th>
+  <th>Status</th>
+  {% for brand in brands %}
+  <tr>
+    <!-- <td>{{ brand.brand_name }} |</td> -->
+    <td><a href="{% url 'update_inactive_brand' brand.id %}">{{ brand.brand_name }}</a></td>
+    <td>{{ brand.is_active }} |</td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}
