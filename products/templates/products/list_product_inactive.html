@@ -8,7 +8,7 @@
 <a href="{% url 'list_product' %}" role="button">Products</a> |
 <br>
 <br>
-<a href="{% url 'list_category' %}" role="button">Active Category</a>
+<a href="{% url 'list_product' %}" role="button">Active Products</a>
 <br>
 {% if messages %}
 <div class="alert alert-success" role="alert">
@@ -21,13 +21,12 @@
 
 {% endif %}
 <table>
-  <th>Category Name</th>
+  <th>Products Name</th>
   <th>Status</th>
-  {% for category in categorys %}
+  {% for product in products %}
   <tr>
-    <!-- <td>{{ brand.brand_name }} |</td> -->
-    <td><a href="{% url 'update_inactive_category' category.id %}">{{ category.category_name }}</a></td>
-    <td>{{ category.is_active }} |</td>
+    <td><a href="{% url 'update_inactive_product' product.id %}">{{ product.product_name }}</a></td>
+    <td>{{ product.is_active }} |</td>
   </tr>
   {% endfor %}
 </table>

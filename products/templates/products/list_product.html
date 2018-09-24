@@ -2,13 +2,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 <a href="{% url 'home' %}" role="button">Home</a> |
 <a href="{% url 'list_brands' %}" role="button">Brands</a> |
 <a href="{% url 'list_category' %}" role="button">Category</a> |
 <a href="{% url 'list_product' %}" role="button">Products</a> |
 <br>
 <br>
-<a href="{% url 'list_category' %}" role="button">Active Category</a>
+<a href="{% url 'create_product' %}" role="button">ADD</a>
+<br>
+<a href="{% url 'list_product_inactive' %}" role="button">Inactive Products</a>
 <br>
 {% if messages %}
 <div class="alert alert-success" role="alert">
@@ -20,14 +23,16 @@
 </div>
 
 {% endif %}
+
 <table>
-  <th>Category Name</th>
+  <th>Product Name</th>
   <th>Status</th>
-  {% for category in categorys %}
+  <th></th>
+  {% for product in products %}
   <tr>
-    <!-- <td>{{ brand.brand_name }} |</td> -->
-    <td><a href="{% url 'update_inactive_category' category.id %}">{{ category.category_name }}</a></td>
-    <td>{{ category.is_active }} |</td>
+    <td><a href="{% url 'update_product' product.id %}">{{ product.product_name }}</a></td>
+    <td>{{ product.is_active }} |</td>
+
   </tr>
   {% endfor %}
 </table>
